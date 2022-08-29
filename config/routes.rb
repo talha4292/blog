@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :reports
   end
 
+  resources :users, only: :show
   resources :dashboard, only: :index
   resources :posts, concerns: %i[likeable reportable] do
     resources :suggestions, concerns: :commentable
