@@ -44,6 +44,7 @@ gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'image_processing', '~> 1.2 '
 gem 'shrine', '~> 3.3'
 gem 'shrine-cloudinary', '~> 1.1'
+# gem "actiontext", github: "kobaltz/actiontext", branch: 'archive', require: "action_text"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

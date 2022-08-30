@@ -20,8 +20,11 @@ Rails.application.routes.draw do
 
   resources :users, only: :show
   resources :dashboard, only: :index
-  resources :posts, concerns: %i[likeable reportable] do
-    resources :suggestions, concerns: :commentable
-    resources :comments, concerns: %i[likeable commentable reportable]
+
+  shallow do
+    resources :posts, concerns: %i[likeable reportable] do
+      resources :suggestions, concerns: :commentable
+      resources :comments, concerns: %i[likeable commentable reportable]
+    end
   end
 end
