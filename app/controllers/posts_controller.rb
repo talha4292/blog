@@ -7,15 +7,15 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = current_user.posts.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def new
-    @post = current_user.posts.new
+    @post = Post.new
   end
 
   def edit
-    @post = current_user.posts.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def create
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = current_user.posts.find(params[:id])
+    @post = Post.find(params[:id])
 
     if @post.update(post_params)
       redirect_to @post
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = current_user.posts.find(params[:id])
+    @post = Post.find(params[:id])
     @post.destroy
 
     redirect_to posts_path

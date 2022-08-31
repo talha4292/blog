@@ -8,16 +8,14 @@
   <%= @post.text %>
 </p>
 
-<h2> <%= @post.likes.count %> Likes</h2>
-<%= render 'likes/form'%>
+<h2> <%= @post.likes.count %> Post Likes</h2>
+<%= post_like_button %>
 
-<% if false %>
-<h2>Comments</h2>
-<%= render @post.comments, :object => @post  %>
+<h2> <%= @post.comments.count %> Comments</h2>
+<%= render @post.comments %>
 
 <h2>Add a comment:</h2>
-<%= render 'comments/form'%>
+<%= render 'comments/form' , object: @post, type: 'Post' %>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
-<% end %>

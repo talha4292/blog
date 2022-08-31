@@ -1,0 +1,7 @@
+<%= form_with(model: [ object, object.likes.build ], local: true) do |form| %>
+  <%= form.hidden_field 'likeable_id', value: object.id %>
+  <%= form.hidden_field 'likeable_type', value: type %>
+  <p>
+    <%= form.submit value='Like' %>
+  </p>
+<% end %>

@@ -2,24 +2,27 @@
 
 # CommentsController
 class CommentsController < ApplicationController
+  def show
+    @comment = Comment.find(params[:id])
+    redirect_to @comment.commentable
+  end
+
   def create
     @comment = current_user.comments.new(comment_params)
-    @comment.commentable_id = params[:post_id]
-    @comment.commentable_type = 'Post'
-    @comment.save
-    redirect_to post_path(@comment.commentable)
+    flash[:notice] = @comment.errors.full_messages.to_sentence unless @comment.save
+    redirect_to @comment.commentable
   end
 
   def destroy
-    @comment = current_user.comments.find(params[:id])
-    @commentable = @comment.commentable
+    @comment = Comment.find(params[:id])
+    commentable = @comment.commentable
     @comment.destroy
-    redirect_to post_path(@commentable)
+    redirect_to commentable
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:text)
+    params.require(:comment).permit(:text, :commentable_id, :commentable_type, :parent_id)
   end
 end

@@ -3,8 +3,19 @@
   <%= comment.text %>
 </p>
 
+<h3> <%= comment.likes.count %> Comment Likes</h3>
+<%= comment_like_button(comment) %>
+
+<% if !comment.parent_id %>
+  <h3> <%= comment.replies.count %> Replies</h3>
+  <%= render comment.replies %>
+
+  <h3>Add a Reply:</h3>
+  <%= render 'comments/form' , object: comment, type: 'Comment' %>
+<% end %>
+
 <p>
-  <%= link_to 'Destroy Comment', [object , comment],
+  <%= link_to 'Destroy Comment', comment,
                method: :delete,
                data: { confirm: 'Are you sure?' } %>
 </p>
