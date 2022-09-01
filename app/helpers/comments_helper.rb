@@ -10,4 +10,17 @@ module CommentsHelper
       render partial: 'likes/unlike', locals: { like: like }
     end
   end
+
+  def comment_report(comment)
+    report = current_user.reports.find_by(reportable: comment)
+    if report.nil?
+      link_to 'Report', new_comment_report_path(comment)
+    else
+      render 'reports/reported', object: comment
+    end
+  end
+
+  def comment_reply(comment)
+    render 'comments/comment_replies', comment: comment unless comment.parent_id
+  end
 end

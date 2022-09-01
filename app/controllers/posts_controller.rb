@@ -3,7 +3,7 @@
 # PostsController
 class PostsController < ApplicationController
   def index
-    @posts = current_user.posts
+    @posts = current_user.posts.descending
   end
 
   def show

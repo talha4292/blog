@@ -10,4 +10,13 @@ module PostsHelper
       render partial: 'likes/unlike', locals: { like: like }
     end
   end
+
+  def post_report
+    report = current_user.reports.find_by(reportable: @post)
+    if report.nil?
+      link_to 'Report', new_post_report_path(@post)
+    else
+      render 'reports/reported', object: @post
+    end
+  end
 end

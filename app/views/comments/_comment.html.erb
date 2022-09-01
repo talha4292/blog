@@ -6,13 +6,9 @@
 <h3> <%= comment.likes.count %> Comment Likes</h3>
 <%= comment_like_button(comment) %>
 
-<% if !comment.parent_id %>
-  <h3> <%= comment.replies.count %> Replies</h3>
-  <%= render comment.replies %>
+<%= comment_report(comment) %>
 
-  <h3>Add a Reply:</h3>
-  <%= render 'comments/form' , object: comment, type: 'Comment' %>
-<% end %>
+<%= comment_reply(comment) %>
 
 <p>
   <%= link_to 'Destroy Comment', comment,

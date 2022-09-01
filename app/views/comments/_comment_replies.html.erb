@@ -1,0 +1,5 @@
+<h3> <%= comment.replies.count %> Replies</h3>
+<%= render comment.replies %>
+
+<h3>Add a Reply:</h3>
+<%= render 'comments/form' , object: comment, type: 'Comment' %>
