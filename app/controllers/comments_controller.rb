@@ -2,9 +2,8 @@
 
 # CommentsController
 class CommentsController < ApplicationController
-  def show
+  def view
     @comment = Comment.find(params[:id])
-    redirect_to @comment.commentable
   end
 
   def create

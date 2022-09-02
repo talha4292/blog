@@ -9,13 +9,18 @@ Rails.application.routes.draw do
   end
 
   concern :commentable do
-    resources :comments
+    resources :comments do
+      get :view, on: :member
+    end
   end
   concern :likeable do
     resources :likes
   end
   concern :reportable do
-    resources :reports
+    resources :reports do
+      get :report, on: :member
+      post :report_status, on: :member
+    end
   end
 
   resources :users, only: :show
@@ -23,6 +28,8 @@ Rails.application.routes.draw do
 
   shallow do
     resources :posts, concerns: %i[likeable reportable] do
+      get :approve, on: :collection
+      post :approve_status, on: :member
       resources :suggestions, concerns: :commentable
       resources :comments, concerns: %i[likeable commentable reportable]
     end

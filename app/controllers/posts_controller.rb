@@ -6,6 +6,10 @@ class PostsController < ApplicationController
     @posts = current_user.posts.descending
   end
 
+  def approve
+    @posts = Post.unapproved.descending
+  end
+
   def show
     @post = Post.find(params[:id])
   end
@@ -26,6 +30,12 @@ class PostsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def approve_status
+    @post = Post.find(params[:id])
+    @post.approved!
+    redirect_to approve_posts_path
   end
 
   def update

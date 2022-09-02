@@ -7,6 +7,16 @@ class ReportsController < ApplicationController
     @reportable = find_reportable
   end
 
+  def report
+    @reports = Report.all
+  end
+
+  def report_status
+    @post = Post.find(params[:id])
+    @post.unapproved!
+    redirect_to report_report_path(@post)
+  end
+
   def create
     @report = current_user.reports.new(report_params)
     flash[:notice] = @report.errors.full_messages.to_sentence unless @report.save

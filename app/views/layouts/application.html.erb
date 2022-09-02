@@ -15,6 +15,10 @@
       <%= link_to "Dashboard", controller: '/dashboard' %>
       <%= link_to "My Profile", user_path(current_user.id) %>
       <%= link_to 'My Posts', controller: '/posts' %>
+      <% if current_user.moderator? %>
+        <%= link_to 'Approve Posts', approve_posts_path %>
+        <%= link_to 'Reports', report_report_path(current_user.id) %>
+      <% end %>
     <% else %>
       <%= link_to "Sign up", new_user_registration_path %>
       <%= link_to "Sign in", new_user_session_path %>
