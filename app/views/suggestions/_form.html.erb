@@ -1,0 +1,26 @@
+<%= form_with(model: @suggestion, local: true) do |form| %>
+
+  <% if @suggestion.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@suggestion.errors.count, "error") %> prohibited
+        this suggestion from being saved:
+      </h2>
+      <ul>
+        <% @suggestion.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :content %><br>
+    <%= form.rich_text_area :content %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+
+<% end %>

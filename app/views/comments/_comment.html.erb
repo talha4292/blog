@@ -1,6 +1,6 @@
 <p>
   <strong>Comment:</strong>
-  <%= comment.text %>
+  <%= simple_format(comment.text) %>
 </p>
 
 <h3> <%= comment.likes.count %> Comment Likes</h3>

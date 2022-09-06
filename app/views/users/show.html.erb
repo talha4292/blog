@@ -1,6 +1,6 @@
 <p>
   <strong>Profile Picture:</strong><br>
-  <%= image_tag @user.image_url if @user.image %>
+  <%= image_tag @user.image_url, size: 200, class: "rounded-circle"  if @user.image %>
 </p>
 
 <p>

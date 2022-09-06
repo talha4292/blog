@@ -1,20 +1,17 @@
-<h1>Recent posts</h1>
-<% unless @posts.empty? %>
-  <table>
-    <tr>
-      <th>User_id</th>
-      <th>Title</th>
-      <th>Text</th>
-      <th colspan="1"></th>
-    </tr>
-
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.user_id %></td>
-        <td><%= post.title %></td>
-        <td><%= post.text %></td>
-        <td><%= link_to 'Show', post_path(post) %></td>
-      </tr>
-    <% end %>
-  </table>
-<% end %>
+<div class="container-fluid">
+  <% @posts.each do |post| %>
+    <% user = post.user %>
+    <div class="card">
+      <div class="card-header">
+        <%= image_tag user.image_url, size: 25, class: "rounded-circle"  if user.image %>
+        <small><%= user.username %></small>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= post.title %></h5>
+        <p class="card-text"><%= post.content %></p>
+      </div>
+      <%# <div class="card-footer"></div> %>
+      <%= link_to '', post_path(post), class: "stretched-link" %>
+    </div><br>
+  <% end %>
+</div>

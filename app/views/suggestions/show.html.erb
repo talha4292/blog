@@ -1,0 +1,18 @@
+<p>
+  <strong>Content:</strong>
+  <%= @suggestion.content %>
+</p>
+
+<h2> <%= @suggestion.comments.count %> Comments</h2>
+<%= render @suggestion.comments %>
+
+<h2>Add a comment:</h2>
+<%= render 'comments/form', object: @suggestion, type: 'Suggestion' %>
+
+<% if current_user.id == @suggestion.user_id %>
+  <%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
+<% else %>
+  <%= link_to 'Modify and Replace', edit_suggestion_path(@suggestion) %> <br><br>
+<% end %>
+
+<%= link_to 'Back', :back %>

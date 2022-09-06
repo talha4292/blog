@@ -5,26 +5,21 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-      <%= link_to "Dashboard", controller: '/dashboard' %>
-      <%= link_to "My Profile", user_path(current_user.id) %>
-      <%= link_to 'My Posts', controller: '/posts' %>
-      <% if current_user.moderator? %>
-        <%= link_to 'Approve Posts', approve_posts_path %>
-        <%= link_to 'Reports', report_report_path(current_user.id) %>
-      <% end %>
-    <% else %>
+    <%= render 'shared/navbar' %>
+    <% unless user_signed_in? %>
       <%= link_to "Sign up", new_user_registration_path %>
       <%= link_to "Sign in", new_user_session_path %>
     <% end %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

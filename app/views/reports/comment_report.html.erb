@@ -1,0 +1,24 @@
+<% unless @reports.empty? %>
+<h1>Reported Comments</h1>
+  <table>
+    <tr>
+      <th>User_id</th>
+      <th>Text</th>
+      <th>Reporter_id</th>
+      <th colspan="2"></th>
+    </tr>
+
+    <% @reports.each do |report| %>
+      <% comment = report.reportable %>
+      <tr>
+        <td><%= comment.user_id %></td>
+        <td><%= comment.text %></td>
+        <td><%= report.user_id %></td>
+        <td><%= link_to 'Show', view_comment_path(comment) %></td>
+        <td><%= link_to 'Delete', comment_path(comment),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

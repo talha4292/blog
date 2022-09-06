@@ -41,10 +41,18 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise', '~> 4.8', '>= 4.8.1'
 
 # gem "aws-sdk-s3", require: false
-gem 'image_processing', '~> 1.2 '
+
 gem 'shrine', '~> 3.3'
 gem 'shrine-cloudinary', '~> 1.1'
-# gem "actiontext", github: "kobaltz/actiontext", branch: 'archive', require: "action_text"
+
+gem 'actiontext', github: 'kobaltz/actiontext', branch: 'archive', require: 'action_text'
+gem 'image_processing', '~> 1.2 '
+gem 'webpacker'
+
+gem 'bootstrap', '~> 5.2.0'
+gem 'jquery-rails'
+
+gem 'rails_admin'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

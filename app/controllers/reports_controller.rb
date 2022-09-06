@@ -7,14 +7,18 @@ class ReportsController < ApplicationController
     @reportable = find_reportable
   end
 
-  def report
-    @reports = Report.all
+  def post_report
+    @reports = Report.where(reportable_type: 'Post')
+  end
+
+  def comment_report
+    @reports = Report.where(reportable_type: 'Comment')
   end
 
   def report_status
     @post = Post.find(params[:id])
     @post.unapproved!
-    redirect_to report_report_path(@post)
+    redirect_to post_report_report_path(@post)
   end
 
   def create

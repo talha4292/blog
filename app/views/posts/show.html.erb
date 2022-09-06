@@ -4,8 +4,8 @@
 </p>
 
 <p>
-  <strong>Text:</strong>
-  <%= @post.text %>
+  <strong>Content:</strong>
+  <%= @post.content %>
 </p>
 
 <h2> <%= @post.likes.count %> Post Likes</h2>
@@ -19,5 +19,12 @@
 <h2>Add a comment:</h2>
 <%= render 'comments/form', object: @post, type: 'Post' %>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<% if current_user.id == @post.user_id %>
+  <h2> <%= @post.suggestions.count %> Suggestions</h2>
+  <%= render 'suggestions/suggestion', suggestions: @post.suggestions %>
+  <%= link_to 'Edit', edit_post_path(@post) %> |
+<% else %>
+  <%= link_to 'Give Suggestion', edit_post_path(@post) %> <br><br>
+<% end %>
+
 <%= link_to 'Back', posts_path %>
