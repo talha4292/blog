@@ -10,7 +10,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable
 
-  # has_one_attached :avatar
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :suggestions, dependent: :destroy

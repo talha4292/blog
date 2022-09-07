@@ -8,7 +8,7 @@
       </div>
       <div class="card-body">
         <h5 class="card-title"><%= post.title %></h5>
-        <p class="card-text"><%= post.content %></p>
+        <p class="card-text"><%= post.text.html_safe %></p>
       </div>
       <%# <div class="card-footer"></div> %>
       <%= link_to '', post_path(post), class: "stretched-link" %>

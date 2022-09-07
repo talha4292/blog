@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# SuggestionsController
 class SuggestionsController < ApplicationController
   def list
     @suggestions = current_user.suggestions.descending
@@ -16,7 +19,7 @@ class SuggestionsController < ApplicationController
 
     if @suggestion.user != current_user
       @suggestion.post.update(suggestion_params)
-      redirect_to  @suggestion.post
+      redirect_to @suggestion.post
     elsif @suggestion.update(suggestion_params)
       redirect_to list_suggestion_path(@suggestion)
     else
@@ -34,6 +37,6 @@ class SuggestionsController < ApplicationController
   private
 
   def suggestion_params
-    params.require(:suggestion).permit(:content)
+    params.require(:suggestion).permit(:text)
   end
 end

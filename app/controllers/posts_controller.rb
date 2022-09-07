@@ -42,7 +42,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if @post.user != current_user
-      current_user.suggestions.create(content: post_params[:content], post: @post)
+      current_user.suggestions.create(text: post_params[:text], post: @post)
       redirect_to @post
     elsif @post.update(post_params)
       redirect_to @post
@@ -61,6 +61,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :text)
   end
 end

@@ -1,13 +1,13 @@
 <p>
-  <strong>Content:</strong>
-  <%= @suggestion.content %>
+  <strong>Text:</strong>
+  <%= @suggestion.text.html_safe %>
 </p>
 
 <h2> <%= @suggestion.comments.count %> Comments</h2>
 <%= render @suggestion.comments %>
 
 <h2>Add a comment:</h2>
-<%= render 'comments/form', object: @suggestion, type: 'Suggestion' %>
+<%= render 'comments/form', object: @suggestion, type: 'Suggestion', parent_id: nil, path_type: @suggestion.comments.build %>
 
 <% if current_user.id == @suggestion.user_id %>
   <%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |

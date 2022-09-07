@@ -1,3 +1,4 @@
+<%= tinymce %>
 <%= form_with(model: @suggestion, local: true) do |form| %>
 
   <% if @suggestion.errors.any? %>
@@ -15,8 +16,8 @@
   <% end %>
 
   <p>
-    <%= form.label :content %><br>
-    <%= form.rich_text_area :content %>
+    <%= form.label :text %><br>
+    <%= form.text_area :text, :class => "tinymce", :rows => 20, :cols => 120 %>
   </p>
 
   <p>

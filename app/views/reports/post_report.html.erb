@@ -15,7 +15,7 @@
         <tr>
           <td><%= post.user_id %></td>
           <td><%= post.title %></td>
-          <td><%= post.text %></td>
+          <td><%= post.text.html_safe %></td>
           <td><%= report.user_id %></td>
           <td><%= link_to 'Show', post_path(post) %></td>
           <td><%= link_to 'Un-publish', report_status_report_path(post),

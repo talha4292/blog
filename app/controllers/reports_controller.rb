@@ -37,6 +37,5 @@ class ReportsController < ApplicationController
     params.each do |name, value|
       return Regexp.last_match(1).classify.constantize.find(value) if name =~ /(.+)_id$/
     end
-    nil
   end
 end
