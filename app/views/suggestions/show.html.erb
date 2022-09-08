@@ -1,10 +1,16 @@
-<p>
-  <strong>Text:</strong>
-  <%= @suggestion.text.html_safe %>
-</p>
+<h2>Suggestion Text by:</h2>
+<% user = @suggestion.user %>
+<%= image_tag user.image_url, size: 50, class: "rounded-circle"  if user.image %>
+<%= image_tag "dp-avatar", size: 50, class: "rounded-circle"  unless user.image %>
+<b class='lead'><b><%= user.username %></b></b>
 
-<h2> <%= @suggestion.comments.count %> Comments</h2>
+<hr>
+<%= @suggestion.text.html_safe %>
+<br>
+
+<h2> <%= @suggestion.comments.count %> Comments</h2><hr>
 <%= render @suggestion.comments %>
+
 
 <h2>Add a comment:</h2>
 <%= render 'comments/form', object: @suggestion, type: 'Suggestion', parent_id: nil, path_type: @suggestion.comments.build %>
@@ -15,4 +21,5 @@
   <%= link_to 'Modify and Replace', edit_suggestion_path(@suggestion) %> <br><br>
 <% end %>
 
+<%= link_to 'View Post', post_path(@suggestion.post) %>
 <%= link_to 'Back', :back %>

@@ -1,17 +1,22 @@
-<p>
-  <strong>Comment:</strong>
-  <%= simple_format(comment.text) %>
-</p>
+<% user = comment.user %>
 
-<h3> <%= comment.likes.count %> Comment Likes</h3>
+<%= image_tag user.image_url, size: 50, class: "rounded-circle"  if user.image %>
+<%= image_tag "dp-avatar", size: 50, class: "rounded-circle"  unless user.image %>
+<b><%= user.username %></b><br><br>
+<%= simple_format(comment.text) %>
+
 <%= comment_like_button(comment) %>
 
-<%= comment_report(comment) %>
-
-<%= comment_reply(comment) %>
-
+<p style="display: inline; margin-left: 2%">
+  <%= comment_report(comment) %>
+</p>
 <p>
   <%= link_to 'Destroy Comment', comment,
-               method: :delete,
-               data: { confirm: 'Are you sure?' } %>
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
 </p>
+
+<div style="margin-left: 10%">
+  <%= comment_reply(comment) %>
+</div>
+<hr>
