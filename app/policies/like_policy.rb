@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class UserPolicy < ApplicationPolicy
+# LikePolicy
+class LikePolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve
@@ -8,7 +9,11 @@ class UserPolicy < ApplicationPolicy
     # end
   end
 
-  def show?
+  def create?
+    user
+  end
+
+  def destroy?
     user
   end
 end

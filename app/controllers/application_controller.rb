@@ -2,8 +2,16 @@
 
 # ApplicationController
 class ApplicationController < ActionController::Base
-  include Pundit
+  include Pundit::Authorization
+
+  rescue_from Pundit::NotAuthorizedError do
+    redirect_to root_url, alert: 'You are not authorized for this action'
+  end
+
   before_action :config_permitted_params, if: :devise_controller?
+  before_action :authenticate_user!, unless: :devise_controller?
+
+  after_action :verify_authorized, unless: :devise_controller?
 
   protected
 
