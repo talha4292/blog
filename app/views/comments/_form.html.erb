@@ -1,11 +1,3 @@
-<% if type == 'Comment' %>
-  <% path_type = object.replies.build %>
-  <% parent_id = object.id %>
-<% else %>
-  <% path_type = object.comments.build %>
-  <% parent_id = nil %>
-<% end %>
-
 <%= form_with(model: [ object, path_type ], local: true) do |form| %>
   <p>
     <%= form.label :text %><br>
@@ -15,6 +7,6 @@
     <%= form.hidden_field 'parent_id', value: parent_id %>
   </p>
   <p>
-    <%= form.submit %>
+    <%= form.submit "Post" %>
   </p>
 <% end %>
