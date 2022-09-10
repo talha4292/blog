@@ -1,0 +1,39 @@
+<% user = @post.user %>
+<%= image_tag user.image_url, size: 50, class: "rounded-circle"  if user.image %>
+<%= image_tag "dp-avatar", size: 50, class: "rounded-circle"  unless user.image %>
+<b class='lead'><b><%= user.username %></b></b>
+<hr>
+
+<h1 style = "font-size: 50px">
+  <%= @post.title %>
+</h1><br>
+
+<p>
+  <%= @post.text.html_safe %>
+</p><br>
+
+<%= post_like_button %>
+<p style="display: inline; margin-left: 2%">
+<%= @post.comments.count %>
+<i class="far fa-comment" aria-hidden="true" style="color: black;"></i>
+</p>
+<p style="display: inline; margin-left: 2%">
+  <%= post_report %>
+</p><br><br><br>
+
+<h2><%= @post.comments.count %> Comments</h2><hr>
+
+<%= render @post.comments %>
+
+<h2>Add a comment:</h2>
+<%= render 'comments/form', object: @post, type: 'Post', parent_id: nil, path_type: @post.comments.build %><hr>
+
+<% if current_user.id == @post.user_id %>
+  <h2> <%= @post.suggestions.count %> Suggestions</h2>
+  <%= render 'suggestions/suggestion', suggestions: @post.suggestions %>
+  <%= link_to 'Edit', edit_post_path(@post) %> |
+<% else %>
+  <%= link_to 'Give Suggestion', edit_post_path(@post) %> <br><br>
+<% end %>
+
+<%= link_to 'Back', posts_path %>
