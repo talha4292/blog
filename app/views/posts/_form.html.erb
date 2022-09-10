@@ -1,3 +1,4 @@
+<%= tinymce %>
 <%= form_with(model: @post, local: true) do |form| %>
 
   <% if @post.errors.any? %>
@@ -20,8 +21,8 @@
   </p>
 
   <p>
-    <%= form.label :content %><br>
-    <%= form.rich_text_area :content %>
+    <%= form.label :text %><br>
+    <%= form.text_area :text, :class => "tinymce", :rows => 20, :cols => 120 %>
   </p>
 
   <p>

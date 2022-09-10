@@ -1,22 +1,22 @@
+# frozen_string_literal: true
+
+# SuggestionsController
 class SuggestionsController < ApplicationController
+  before_action :set_suggestion, only: %i[show edit update destroy]
+
   def list
     @suggestions = current_user.suggestions.descending
+    authorize @suggestions
   end
 
-  def show
-    @suggestion = Suggestion.find(params[:id])
-  end
+  def show; end
 
-  def edit
-    @suggestion = Suggestion.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @suggestion = Suggestion.find(params[:id])
-
     if @suggestion.user != current_user
       @suggestion.post.update(suggestion_params)
-      redirect_to  @suggestion.post
+      redirect_to @suggestion.post
     elsif @suggestion.update(suggestion_params)
       redirect_to list_suggestion_path(@suggestion)
     else
@@ -25,15 +25,18 @@ class SuggestionsController < ApplicationController
   end
 
   def destroy
-    @suggestion = Suggestion.find(params[:id])
     @suggestion.destroy
-
     redirect_to list_suggestion_path(current_user)
   end
 
   private
 
+  def set_suggestion
+    @suggestion = Suggestion.find(params[:id])
+    authorize @suggestion
+  end
+
   def suggestion_params
-    params.require(:suggestion).permit(:content)
+    params.require(:suggestion).permit(:text)
   end
 end

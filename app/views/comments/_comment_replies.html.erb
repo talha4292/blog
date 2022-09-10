@@ -1,5 +1,5 @@
-<h3> <%= comment.replies.count %> Replies</h3>
+<h3> <%= comment.replies.count %> Replies</h3><hr>
 <%= render comment.replies %>
 
 <h3>Add a Reply:</h3>
-<%= render 'comments/form' , object: comment, type: 'Comment' %>
+<%= render 'comments/form' , object: comment, type: 'Comment', parent_id: comment.id, path_type: comment.replies.build %>
