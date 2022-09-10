@@ -1,5 +1,13 @@
 {
   "name": "blog",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "5.3.0",
+    "actiontext": "https://github.com/kobaltz/actiontext",
+    "node-sass": "^7.0.1"
+  },
+  "devDependencies": {
+    "@webpack-cli/serve": "^1.7.0",
+    "webpack-dev-server": "^4.10.1"
+  }
 }

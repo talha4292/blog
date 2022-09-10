@@ -1,24 +1,26 @@
 <h1>Listing posts</h1>
 <%= link_to 'New post', new_post_path %>
+<br><br>
 
-<% unless @posts.empty? %>
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Text</th>
-      <th colspan="3"></th>
-    </tr>
-
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.text %></td>
-        <td><%= link_to 'Show', post_path(post) %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Delete', post_path(post),
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </table>
-<% end %>
+<div class="container-fluid">
+  <% @posts.each do |post| %>
+    <% user = post.user %>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <%= image_tag user.image_url, size: 25, class: "rounded-circle"  if user.image %>
+          <%= image_tag "dp-avatar", size: 25, class: "rounded-circle"  unless user.image %>
+          <small><%= user.username %></small>
+          <small style="float: right">(<%= post.status %>)</small>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= post.title %></h5>
+        </div>
+        <%= link_to '', post_path(post), class: "stretched-link" %>
+      </div>
+      <%= link_to 'Delete', post_path(post),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %>
+    </div><br>
+  <% end %>
+</div>
