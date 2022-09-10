@@ -1,10 +1,25 @@
-<p>
-  <strong>Comment:</strong>
-  <%= comment.text %>
-</p>
+<% user = comment.user %>
+
+<%= image_tag user.image_url, size: 50, class: "rounded-circle"  if user.image %>
+<%= image_tag "dp-avatar", size: 50, class: "rounded-circle"  unless user.image %>
+<b><%= user.username %></b><br><br>
+<%= simple_format(comment.text) %>
+
+<%= comment_like_button(comment) %>
+
+<% unless comment.user == current_user %>
+  <p style="display: inline; margin-left: 2%">
+    <%= comment_report(comment) %>
+  </p>
+<% end %>
 
 <p>
-  <%= link_to 'Destroy Comment', [object , comment],
-               method: :delete,
-               data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Destroy Comment', comment,
+              method: :delete,
+              data: { confirm: 'Are you sure?' } if policy(comment).destroy? %>
 </p>
+
+<div style="margin-left: 10%">
+  <%= comment_reply(comment) %>
+</div>
+<hr>

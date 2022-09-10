@@ -4,12 +4,14 @@
 class LikesController < ApplicationController
   def create
     @like = current_user.likes.new(like_params)
+    authorize @like
     flash[:notice] = @like.errors.full_messages.to_sentence unless @like.save
     redirect_to @like.likeable
   end
 
   def destroy
-    @like = current_user.likes.find(params[:id])
+    @like = Like.find(params[:id])
+    authorize @like
     likeable = @like.likeable
     @like.destroy
     redirect_to likeable

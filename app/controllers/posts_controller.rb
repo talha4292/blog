@@ -2,25 +2,30 @@
 
 # PostsController
 class PostsController < ApplicationController
+  before_action :set_post, only: %i[show edit approve_status update destroy]
+
   def index
-    @posts = current_user.posts
+    @posts = current_user.posts.descending
+    authorize @posts
   end
 
-  def show
-    @post = current_user.posts.find(params[:id])
+  def approve
+    @posts = Post.unapproved.descending
+    authorize @posts
   end
+
+  def show; end
 
   def new
-    @post = current_user.posts.new
+    @post = Post.new
+    authorize @post
   end
 
-  def edit
-    @post = current_user.posts.find(params[:id])
-  end
+  def edit; end
 
   def create
     @post = current_user.posts.new(post_params)
-
+    authorize @post
     if @post.save
       redirect_to @post
     else
@@ -28,10 +33,16 @@ class PostsController < ApplicationController
     end
   end
 
-  def update
-    @post = current_user.posts.find(params[:id])
+  def approve_status
+    @post.approved!
+    redirect_to approve_posts_path
+  end
 
-    if @post.update(post_params)
+  def update
+    if @post.user != current_user
+      current_user.suggestions.create(text: post_params[:text], post: @post)
+      redirect_to @post
+    elsif @post.update(post_params)
       redirect_to @post
     else
       render 'edit'
@@ -39,13 +50,16 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = current_user.posts.find(params[:id])
     @post.destroy
-
     redirect_to posts_path
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+    authorize @post
+  end
 
   def post_params
     params.require(:post).permit(:title, :text)

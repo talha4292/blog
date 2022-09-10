@@ -1,0 +1,8 @@
+<%= form_with(model: [ object, object.likes.build ], local: true, html: { style: "display: inline;" }) do |form| %>
+  <%= form.hidden_field 'likeable_id', value: object.id %>
+  <%= form.hidden_field 'likeable_type', value: type %>
+  <button type="submit" style="border: 0; background: none; padding: 0;">
+    <%= object.likes.count %>
+    <i class="far fa-heart" aria-hidden="true" style="color: black;"></i>
+  </button>
+<% end %>

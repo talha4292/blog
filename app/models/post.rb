@@ -8,4 +8,7 @@ class Post < ApplicationRecord
   has_many :reports, as: :reportable, dependent: :destroy
 
   # has_rich_text :content
+
+  enum status: { unapproved: 0, approved: 1 }
+  scope :descending, -> { order(updated_at: :desc) }
 end
