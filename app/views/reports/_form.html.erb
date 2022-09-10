@@ -1,0 +1,15 @@
+<%= form_with(model: [ object, object.reports.build ], local: true) do |form| %>
+  <p>
+    <%= form.radio_button :text, 'Spam', checked: true %>
+    <%= label :text, 'Spam' %><br>
+    <%= form.radio_button :text, 'Harrasment' %>
+    <%= label :text, 'Harrasment' %><br>
+    <%= form.radio_button :text, 'Rules Voilation' %>
+    <%= label :text, 'Rules Voilation' %><br>
+    <%= form.hidden_field 'reportable_id', value: object.id %>
+    <%= form.hidden_field 'reportable_type', value: type %>
+  </p>
+  <p>
+    <%= form.submit value: "Submit Report" %>
+  </p>
+<% end %>
