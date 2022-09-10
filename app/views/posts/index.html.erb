@@ -11,6 +11,7 @@
           <%= image_tag user.image_url, size: 25, class: "rounded-circle"  if user.image %>
           <%= image_tag "dp-avatar", size: 25, class: "rounded-circle"  unless user.image %>
           <small><%= user.username %></small>
+          <small style="float: right">(<%= post.status %>)</small>
         </div>
         <div class="card-body">
           <h5 class="card-title"><%= post.title %></h5>

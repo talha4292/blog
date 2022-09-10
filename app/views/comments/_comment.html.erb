@@ -7,13 +7,16 @@
 
 <%= comment_like_button(comment) %>
 
-<p style="display: inline; margin-left: 2%">
-  <%= comment_report(comment) %>
-</p>
+<% unless comment.user == current_user %>
+  <p style="display: inline; margin-left: 2%">
+    <%= comment_report(comment) %>
+  </p>
+<% end %>
+
 <p>
   <%= link_to 'Destroy Comment', comment,
               method: :delete,
-              data: { confirm: 'Are you sure?' } %>
+              data: { confirm: 'Are you sure?' } if policy(comment).destroy? %>
 </p>
 
 <div style="margin-left: 10%">
