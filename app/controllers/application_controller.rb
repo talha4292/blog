@@ -2,7 +2,16 @@
 
 # ApplicationController
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+
+  rescue_from Pundit::NotAuthorizedError do
+    redirect_to root_url, alert: 'You are not authorized for this action'
+  end
+
   before_action :config_permitted_params, if: :devise_controller?
+  before_action :authenticate_user!, unless: :devise_controller?
+
+  after_action :verify_authorized, unless: :devise_controller?
 
   protected
 
@@ -15,7 +24,7 @@ class ApplicationController < ActionController::Base
     end
     devise_parameter_sanitizer.permit(:account_update) do |u|
       u.permit(:first_name, :last_name, :username, :birthday, :about, :email, :password, :password_confirmation,
-               :current_password, :remember_me)
+               :current_password, :remember_me, :image)
     end
   end
 end

@@ -2,6 +2,8 @@
 
 # User
 class User < ApplicationRecord
+  include ImageUploader::Attachment(:image)
+
   # Include default devise modules. Others available are:
   # :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

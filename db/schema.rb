@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_826_185_845) do
+ActiveRecord::Schema.define(version: 20_220_902_125_733) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20_220_826_185_845) do
     t.string 'likeable_type'
     t.bigint 'likeable_id'
     t.index %w[likeable_type likeable_id], name: 'index_likes_on_likeable_type_and_likeable_id'
+    t.index %w[user_id likeable_id likeable_type],
+            name: 'index_likes_on_user_id_and_likeable_id_and_likeable_type', unique: true
     t.index ['user_id'], name: 'index_likes_on_user_id'
   end
 
@@ -45,6 +47,7 @@ ActiveRecord::Schema.define(version: 20_220_826_185_845) do
     t.bigint 'user_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.integer 'status', default: 0
     t.index ['user_id'], name: 'index_posts_on_user_id'
   end
 
@@ -89,6 +92,7 @@ ActiveRecord::Schema.define(version: 20_220_826_185_845) do
     t.text 'about'
     t.date 'birthday'
     t.integer 'role', default: 0
+    t.text 'image_data'
     t.index ['confirmation_token'], name: 'index_users_on_confirmation_token', unique: true
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
