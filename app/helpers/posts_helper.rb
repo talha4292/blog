@@ -7,16 +7,18 @@ module PostsHelper
     if like.nil?
       render partial: 'likes/like', locals: { object: @post, type: 'Post' }
     else
-      render partial: 'likes/unlike', locals: { like: like }
+      render partial: 'likes/unlike', locals: { object: @post, like: like }
     end
   end
 
   def post_report
     report = current_user.reports.find_by(reportable: @post)
     if report.nil?
-      link_to 'Report', new_post_report_path(@post)
+      link_to new_post_report_path(@post) do
+        '<i class="far fa-flag" aria-hidden="true" style="color: black;"></i>'.html_safe
+      end
     else
-      render 'reports/reported', object: @post
+      '<i class="fa fa-flag" aria-hidden="true" style="color: black;"></i>'.html_safe
     end
   end
 end
