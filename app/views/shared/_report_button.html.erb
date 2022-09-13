@@ -1,5 +1,5 @@
 <% unless object.user == current_user %>
-  <p style="display: inline; margin-left: 2%">
+  <p class="inline-style icon-margin">
     <%= post_report(object) if controller == 'posts' %>
     <%= comment_report(object) if controller == 'comments' %>
   </p>

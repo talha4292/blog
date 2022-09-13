@@ -5,9 +5,9 @@
       <div class="card">
         <div class="card-header">
           <%= image_tag user.image_url, size: 25, class: "rounded-circle"  if user.image %>
-          <%= image_tag "dp-avatar", size: 25, class: "rounded-circle"  unless user.image %>
+          <%= image_tag "dp-avatar.jpg", size: 25, class: "rounded-circle"  unless user.image %>
           <small><%= user.username %></small>
-          <small style="float: right"><%= "(#{post.status})" if controller == 'post/index' %></small>
+          <small class="approve-post"><%= "(#{post.status})" if controller == 'post/index' %></small>
         </div>
         <div class="card-body">
           <h5 class="card-title"><%= post.title %></h5>

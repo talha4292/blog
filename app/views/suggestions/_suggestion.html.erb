@@ -6,7 +6,7 @@
         <div class="card">
           <div class="card-header">
             <%= image_tag user.image_url, size: 25, class: "rounded-circle"  if user.image %>
-            <%= image_tag "dp-avatar", size: 25, class: "rounded-circle"  unless user.image %>
+            <%= image_tag "dp-avatar.jpg", size: 25, class: "rounded-circle"  unless user.image %>
             <small><%= user.username %></small>
           </div>
           <div class="card-body">
@@ -15,7 +15,7 @@
             <% suggestion_user = suggestion.user %>
             Suggested by
             <%= image_tag suggestion_user.image_url, size: 25, class: "rounded-circle"  if suggestion_user.image %>
-            <%= image_tag "dp-avatar", size: 25, class: "rounded-circle"  unless suggestion_user.image %>
+            <%= image_tag "dp-avatar.jpg", size: 25, class: "rounded-circle"  unless suggestion_user.image %>
             <small><%= suggestion_user.username %></small>
           </div>
           <%= link_to '', suggestion_path(suggestion), class: "stretched-link" %>
