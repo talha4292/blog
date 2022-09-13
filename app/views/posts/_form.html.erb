@@ -8,12 +8,14 @@
     <%= form.text_field :title, required: true, maxlength: 100 %>
   </p>
 
-  <%= form.label :image %><br>
-  <%= form.file_field :image, required: true, accept: 'image/png, image/jpeg, image/webp' %>
+  <p>
+    <%= form.label :image %><br>
+    <%= form.file_field :image, required: true, accept: 'image/png, image/jpeg, image/webp' %>
+  </p>
 
   <p>
     <%= form.label :text %><br>
-    <%= form.text_area :text, required: true, :class => "tinymce", :rows => 20, :cols => 120 %>
+    <%= form.text_area :text, :class => "tinymce", :rows => 20, :cols => 120 %>
   </p>
 
   <p>

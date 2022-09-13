@@ -2,24 +2,19 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
-  # Code is not reloaded between requests.
-  config.cache_classes = true
-
-  config.action_mailer.default_url_options = { host: 'rails-bloggy.herokuapp.com' }
-
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'example.com',
-    user_name: Rails.application.credentials.dig(:google_smtp, :email),
-    password: Rails.application.credentials.dig(:google_smtp, :password),
+    user_name: 'talhatahir598@gmail.com',
+    password: 'jfaszhfmsmfsanib',
     authentication: 'plain',
     enable_starttls_auto: true
   }
 
-
+  # Code is not reloaded between requests.
+  config.cache_classes = true
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -107,4 +102,5 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  config.action_mailer.default_url_options = { host: 'https://rails-bloggy.herokuapp.com' }
 end
