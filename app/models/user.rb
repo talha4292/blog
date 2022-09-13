@@ -4,8 +4,6 @@
 class User < ApplicationRecord
   include ImageUploader::Attachment(:image)
 
-  # Include default devise modules. Others available are:
-  # :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable
@@ -16,12 +14,13 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :reports, dependent: :destroy
 
-  validates_presence_of :first_name, :last_name, :birthday
-  validates_uniqueness_of :username, case_sensitive: false
-  validates :username, length: { in: 6..20 }
-  validate :validate_age
-
   enum role: { user: 0, moderator: 1, admin: 2 }
+
+  validates :first_name, :last_name, :birthday, presence: true
+  validates :first_name, :last_name, length: { maximum: 15 }
+  validates :username, length: { in: 6..20 }
+  validates :about, length: { maximum: 50 }
+  validate :validate_age
 
   private
 

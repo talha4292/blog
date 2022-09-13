@@ -8,21 +8,22 @@
   <%= @post.title %>
 </h1><br>
 
+<%= image_tag @post.image_url, size: 200 if @post.image %><br>
+
 <p>
   <%= @post.text.html_safe %>
 </p><br>
 
-<%= post_like_button %>
+<%= post_like_button(@post) %>
 <p style="display: inline; margin-left: 2%">
-<%= @post.comments.count %>
-<i class="far fa-comment" aria-hidden="true" style="color: black;"></i>
+  <%= @post.comments.count %>
+  <i class="far fa-comment" aria-hidden="true" style="color: black;"></i>
 </p>
-<p style="display: inline; margin-left: 2%">
-  <%= post_report %>
-</p><br><br><br>
 
+<%= render 'shared/report_button', object: @post, controller: 'posts' %>
+
+<br><br><br>
 <h2><%= @post.comments.count %> Comments</h2><hr>
-
 <%= render @post.comments %>
 
 <h2>Add a comment:</h2>
@@ -30,10 +31,10 @@
 
 <% if current_user.id == @post.user_id %>
   <h2> <%= @post.suggestions.count %> Suggestions</h2>
-  <%= render 'suggestions/suggestion', suggestions: @post.suggestions %>
+  <%= render 'suggestions/suggestion', suggestions: @post.suggestions, controller: 'posts' %>
   <%= link_to 'Edit', edit_post_path(@post) %> |
 <% else %>
-  <%= link_to 'Give Suggestion', edit_post_path(@post) %> <br><br>
+  <%= link_to 'Give Suggestion', new_post_suggestion_path(@post) %> <br><br>
 <% end %>
 
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Back', :back %>

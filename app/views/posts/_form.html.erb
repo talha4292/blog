@@ -1,28 +1,19 @@
 <%= tinymce %>
 <%= form_with(model: @post, local: true) do |form| %>
 
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@post.errors.count, "error") %> prohibited
-        this post from being saved:
-      </h2>
-      <ul>
-        <% @post.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/form_errors', object: form.object %>
 
   <p>
     <%= form.label :title %><br>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, required: true, maxlength: 100 %>
   </p>
+
+  <%= form.label :image %><br>
+  <%= form.file_field :image, required: true, accept: 'image/png, image/jpeg, image/webp' %>
 
   <p>
     <%= form.label :text %><br>
-    <%= form.text_area :text, :class => "tinymce", :rows => 20, :cols => 120 %>
+    <%= form.text_area :text, required: true, :class => "tinymce", :rows => 20, :cols => 120 %>
   </p>
 
   <p>

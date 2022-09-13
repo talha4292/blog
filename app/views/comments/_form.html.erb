@@ -1,7 +1,11 @@
 <%= form_with(model: [ object, path_type ], local: true) do |form| %>
   <p>
     <%= form.label :text %><br>
-    <%= form.text_area :text %>
+    <%= form.text_area :text, required: true %>
+
+    <%= form.label :image %><br>
+    <%= form.file_field :image, accept: 'image/png, image/jpeg, image/webp' %>
+
     <%= form.hidden_field 'commentable_id', value: object.id %>
     <%= form.hidden_field 'commentable_type', value: type %>
     <%= form.hidden_field 'parent_id', value: parent_id %>

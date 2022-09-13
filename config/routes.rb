@@ -5,37 +5,28 @@ Rails.application.routes.draw do
 
   root 'dashboard#index'
 
-  devise_for :users do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
+  devise_for :users
 
   concern :commentable do
-    resources :comments do
-      get :view, on: :member
-    end
+    resources :comments, only: %i[show create destroy]
   end
   concern :likeable do
-    resources :likes
+    resources :likes, only: %i[create destroy]
   end
   concern :reportable do
-    resources :reports do
-      get :post_report, on: :member
-      get :comment_report, on: :member
-      post :report_status, on: :member
-    end
+    resources :reports, only: %i[new create]
   end
 
   resources :users, only: :show
   resources :dashboard, only: :index
+  resources :reports, only: :index
+  resources :suggestions, only: :index
 
   shallow do
     resources :posts, concerns: %i[likeable reportable] do
       get :approve, on: :collection
-      post :approve_status, on: :member
-      resources :suggestions, concerns: :commentable do
-        get :list, on: :member
-      end
-      resources :comments, concerns: %i[likeable commentable reportable]
+      resources :suggestions, except: :index, concerns: :commentable
+      resources :comments, only: %i[show create destroy], concerns: %i[likeable commentable reportable]
     end
   end
 end
