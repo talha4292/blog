@@ -5,8 +5,9 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
   rescue_from Pundit::NotAuthorizedError do
-    redirect_to root_url, alert: 'You are not authorized for this action'
+    redirect_to root_url, alert: t('application.pundit_failure')
   end
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   before_action :config_permitted_params, if: :devise_controller?
   before_action :authenticate_user!, unless: :devise_controller?
@@ -26,5 +27,12 @@ class ApplicationController < ActionController::Base
       u.permit(:first_name, :last_name, :username, :birthday, :about, :email, :password, :password_confirmation,
                :current_password, :remember_me, :image)
     end
+  end
+
+  private
+
+  def record_not_found
+    flash[:alert] = t('application.record_not_exists')
+    redirect_back(fallback_location: root_path)
   end
 end

@@ -9,27 +9,19 @@ class ReportPolicy < ApplicationPolicy
     # end
   end
 
+  def index?
+    user_is_moderator_or_admin?
+  end
+
   def new?
-    create?
-  end
-
-  def post_report?
-    user_is_moderator_or_admin?
-  end
-
-  def comment_report?
-    user_is_moderator_or_admin?
+    user
   end
 
   def create?
-    !user_is_owner_of_record?
+    user != @record.reportable.user
   end
 
   private
-
-  def user_is_owner_of_record?
-    user == @record.user
-  end
 
   def user_is_moderator_or_admin?
     user.moderator? || user.admin?

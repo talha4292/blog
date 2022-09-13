@@ -1,24 +1,3 @@
-<h1>Approve posts</h1>
-<div class="container-fluid">
-  <% @posts.each do |post| %>
-    <% user = post.user %>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <%= image_tag user.image_url, size: 25, class: "rounded-circle"  if user.image %>
-          <%= image_tag "dp-avatar", size: 25, class: "rounded-circle"  unless user.image %>
-          <small><%= user.username %></small>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title"><%= post.title %></h5>
-        </div>
-        <%= link_to '', post_path(post), class: "stretched-link" %>
-      </div>
-      <%= link_to 'Approve', approve_status_post_path(post),
-                method: :post %>
-      <%= link_to 'Delete', post_path(post),
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %>
-    </div><br>
-  <% end %>
-</div>
+<h1>Approve posts</h1><br>
+
+<%= render 'shared/posts', controller: 'post/approve' %>

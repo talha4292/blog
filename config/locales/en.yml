@@ -30,4 +30,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  application:
+    pundit_failure: 'You are not authorized for this action'
+    record_not_exists: 'Record you are trying to find does not exists'

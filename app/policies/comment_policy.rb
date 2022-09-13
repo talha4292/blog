@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CommentPolicy
 class CommentPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
@@ -9,10 +10,6 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def show?
-    user
-  end
-
-  def view?
     user.moderator? || user.admin?
   end
 

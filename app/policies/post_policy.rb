@@ -31,19 +31,11 @@ class PostPolicy < ApplicationPolicy
   end
 
   def create?
-    user_is_owner_of_record?
-  end
-
-  def approve_status?
-    user_is_moderator_or_admin?
-  end
-
-  def report_status?
-    user_is_moderator_or_admin?
+    user
   end
 
   def update?
-    user_is_owner_of_record?
+    user_is_owner_of_record? || user_is_moderator_or_admin?
   end
 
   def destroy?

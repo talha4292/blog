@@ -18,7 +18,7 @@
 <% if current_user.id == @suggestion.user_id %>
   <%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
 <% else %>
-  <%= link_to 'Modify and Replace', edit_suggestion_path(@suggestion) %> <br><br>
+  <%= link_to 'Modify and Replace', edit_post_path(@suggestion.post, 'suggestion_id': @suggestion.id) %> <br><br>
 <% end %>
 
 <%= link_to 'View Post', post_path(@suggestion.post) %>

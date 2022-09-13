@@ -2,35 +2,38 @@
 
 # CommentsController
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[show view destroy]
+  before_action :set_comment_policy, only: %i[show create]
+  before_action :set_comment, only: %i[show destroy]
 
-  def show
-    redirect_to @comment.commentable
-  end
-
-  def view; end
+  def show; end
 
   def create
     @comment = current_user.comments.new(comment_params)
-    authorize @comment
     flash[:notice] = @comment.errors.full_messages.to_sentence unless @comment.save
-    redirect_to @comment.commentable
+    post = @comment.commentable
+    post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
+    redirect_to post
   end
 
   def destroy
-    commentable = @comment.commentable
+    authorize @comment
+    post = @comment.commentable
+    post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
     @comment.destroy
-    redirect_to commentable
+    redirect_to post
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:text, :commentable_id, :commentable_type, :parent_id)
+    params.require(:comment).permit(:text, :image, :commentable_id, :commentable_type, :parent_id)
+  end
+
+  def set_comment_policy
+    authorize Comment
   end
 
   def set_comment
     @comment = Comment.find(params[:id])
-    authorize @comment
   end
 end

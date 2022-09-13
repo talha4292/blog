@@ -20,11 +20,11 @@
               <%= link_to 'My Posts', { controller: '/posts' }, class: "nav-link" %>
             </li>
             <li class="nav-item">
-              <%= link_to 'My Suggestions', list_suggestion_path(current_user.id), class: "nav-link" %>
+              <%= link_to 'My Suggestions', { controller: '/suggestions' }, class: "nav-link" %>
             </li>
             <% if current_user.moderator? || current_user.admin? %>
               <li class="nav-item">
-                <%= link_to 'Approve Posts', approve_posts_path, class: "nav-link" %>
+                <%= link_to 'Approve Posts' , approve_posts_path, class: "nav-link" %>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,10 +32,10 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <%= link_to 'Posts', post_report_report_path(current_user.id), class: "nav-link" %>
+                    <%= link_to 'Posts', { controller: '/reports', :reportable_type => 'Post' }, class: "nav-link" %>
                   </li>
                   <li>
-                    <%= link_to 'Comments', comment_report_report_path(current_user.id), class: "nav-link" %>
+                    <%= link_to 'Comments', { controller: '/reports', :reportable_type => 'Comment' }, class: "nav-link" %>
                   </li>
                 </ul>
               </li>

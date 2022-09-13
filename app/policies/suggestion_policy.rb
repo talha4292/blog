@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# SuggestionPolicy
 class SuggestionPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
@@ -8,7 +9,7 @@ class SuggestionPolicy < ApplicationPolicy
     # end
   end
 
-  def list?
+  def index?
     user
   end
 
@@ -16,16 +17,24 @@ class SuggestionPolicy < ApplicationPolicy
     user_is_owner_of_record? || user_is_owner_of_post?
   end
 
+  def new?
+    user
+  end
+
   def edit?
     update?
   end
 
+  def create?
+    user != @record.post.user
+  end
+
   def update?
-    user_is_owner_of_record? || user_is_owner_of_post?
+    user_is_owner_of_record?
   end
 
   def destroy?
-    user_is_owner_of_record? || user_is_owner_of_post?
+    user_is_owner_of_record?
   end
 
   private

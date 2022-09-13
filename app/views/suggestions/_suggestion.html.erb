@@ -22,7 +22,7 @@
         </div>
         <%= link_to 'Delete', suggestion_path(suggestion),
                     method: :delete,
-                    data: { confirm: 'Are you sure?' } %>
+                    data: { confirm: 'Are you sure?' } if controller == 'suggestions' %>
       </div><br>
   <% end %>
 </div>

@@ -1,8 +1,8 @@
-<h1>Reported Comments</h1>
+<h1>Reported <%= @reportable_type %>s</h1><br>
 <div class="container-fluid">
   <% @reports.each do |report| %>
-    <% comment = report.reportable %>
-    <% user = comment.user %>
+    <% reportable = report.reportable %>
+    <% user = reportable.user %>
     <div class="col-md-4">
       <div class="card">
         <div class="card-header">
@@ -11,7 +11,10 @@
           <small><%= user.username %></small>
         </div>
         <div class="card-body">
-          <h5 class="card-title"><%= comment.text %></h5>
+          <h5 class="card-title">
+          <%= reportable.title if reportable.instance_of?(Post)%>
+          <%= reportable.text if reportable.instance_of?(Comment)%>
+          </h5>
         </div>
         <div class="card-footer">
           <% report_user = report.user %>
@@ -20,9 +23,11 @@
           <%= image_tag "dp-avatar", size: 25, class: "rounded-circle"  unless report_user.image %>
           <small><%= report_user.username %></small>
         </div>
-        <%= link_to '', view_comment_path(comment), class: "stretched-link" %>
+        <%= link_to '', polymorphic_path(reportable), class: "stretched-link" %>
       </div>
-      <%= link_to 'Delete', comment_path(comment),
+      <%= link_to 'Un-publish', polymorphic_path(reportable, 'post[status]': 'unapproved'),
+                  method: :patch if reportable.instance_of?(Post)%>
+      <%= link_to 'Delete', polymorphic_path(reportable),
                   method: :delete,
                   data: { confirm: 'Are you sure?' } %>
     </div><br>

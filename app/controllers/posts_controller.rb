@@ -2,30 +2,30 @@
 
 # PostsController
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[show edit approve_status update destroy]
+  before_action :set_post, only: %i[show edit update destroy]
+  before_action :set_post_policy, only: %i[index approve new create]
 
   def index
     @posts = current_user.posts.descending
-    authorize @posts
   end
 
   def approve
     @posts = Post.unapproved.descending
-    authorize @posts
   end
 
   def show; end
 
   def new
     @post = Post.new
-    authorize @post
   end
 
-  def edit; end
+  def edit
+    suggestion_text = retrive_suggestion_text
+    @post.text = suggestion_text if suggestion_text
+  end
 
   def create
     @post = current_user.posts.new(post_params)
-    authorize @post
     if @post.save
       redirect_to @post
     else
@@ -33,16 +33,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def approve_status
-    @post.approved!
-    redirect_to approve_posts_path
-  end
-
   def update
-    if @post.user != current_user
-      current_user.suggestions.create(text: post_params[:text], post: @post)
-      redirect_to @post
-    elsif @post.update(post_params)
+    if @post.update(post_params)
+      @post.reports.destroy_all
       redirect_to @post
     else
       render 'edit'
@@ -61,7 +54,16 @@ class PostsController < ApplicationController
     authorize @post
   end
 
+  def set_post_policy
+    authorize Post
+  end
+
   def post_params
-    params.require(:post).permit(:title, :text)
+    params.require(:post).permit(:title, :image, :text, :status)
+  end
+
+  def retrive_suggestion_text
+    suggestion_id = params.permit(:suggestion_id).values[0]
+    Suggestion.where(id: suggestion_id).pluck(:text)[0]
   end
 end

@@ -14,6 +14,6 @@ class LikePolicy < ApplicationPolicy
   end
 
   def destroy?
-    user
+    user == @record.user
   end
 end
