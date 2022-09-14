@@ -1,2 +1,4 @@
-$('.<%= @comment.commentable.class %>-comments-count-<%= @comment.commentable.id %>').html('<%= @comment.commentable.comments.count unless @comment.parent_id?%><%= @comment.commentable.replies.count if @comment.parent_id?%>')
-$('.<%= @comment.commentable.class %>-comments-<%= @comment.commentable.id %>').html('<%= j render @comment.commentable.comments unless @comment.parent_id?%><%= j render @comment.commentable.replies if @comment.parent_id?%>')
+$('.<%= @comment.commentable.class %>-comments-count-<%= @comment.commentable.id %>')
+  .html('<%= @comment.commentable.comments.count unless @comment.parent_id?%><%= @comment.commentable.replies.count if @comment.parent_id?%>')
+$('.<%= @comment.commentable.class %>-comments-<%= @comment.commentable.id %>')
+  .html('<%= j render @comment.commentable.comments unless @comment.parent_id?%><%= j render @comment.commentable.replies if @comment.parent_id?%>')

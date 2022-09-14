@@ -22,18 +22,6 @@ class PostPolicy < ApplicationPolicy
     user_is_owner_of_record? || user_is_moderator_or_admin? || @record.approved?
   end
 
-  def new?
-    create?
-  end
-
-  def edit?
-    update?
-  end
-
-  def create?
-    user
-  end
-
   def update?
     user_is_owner_of_record? || user_is_moderator_or_admin?
   end
@@ -43,6 +31,10 @@ class PostPolicy < ApplicationPolicy
   end
 
   private
+
+  alias new? index?
+  alias create? index?
+  alias edit? update?
 
   def user_is_owner_of_record?
     user == @record.user

@@ -1,1 +1,2 @@
-$('.<%= @like.likeable.class %>-like-button-<%= @like.likeable.id %>').html('<%= j render 'likes/unlike', object: @like.likeable, like: @like %>')
+$('.<%= @like.likeable.class %>-like-button-<%= @like.likeable.id %>')
+  .html('<%= j render 'likes/unlike', object: @like.likeable, like: @like %>')

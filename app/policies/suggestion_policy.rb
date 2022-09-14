@@ -17,14 +17,6 @@ class SuggestionPolicy < ApplicationPolicy
     user_is_owner_of_record? || user_is_owner_of_post?
   end
 
-  def new?
-    user
-  end
-
-  def edit?
-    update?
-  end
-
   def create?
     user != @record.post.user
   end
@@ -38,6 +30,9 @@ class SuggestionPolicy < ApplicationPolicy
   end
 
   private
+
+  alias new? index?
+  alias edit? update?
 
   def user_is_owner_of_record?
     user == @record.user
