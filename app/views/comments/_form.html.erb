@@ -1,4 +1,4 @@
-<%= form_with(model: [ object, path_type ], local: true) do |form| %>
+<%= form_with(model: [ object, path_type ], remote: true) do |form| %>
   <p>
     <%= form.label :text %><br>
     <%= form.text_area :text, required: true %>

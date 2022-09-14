@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
     flash[:notice] = @comment.errors.full_messages.to_sentence unless @comment.save
     post = @comment.commentable
     post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
-    redirect_to post
+    req_format(post)
   end
 
   def destroy
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
     post = @comment.commentable
     post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
     @comment.destroy
-    redirect_to post
+    req_format(post)
   end
 
   private
@@ -35,5 +35,12 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def req_format(post)
+    respond_to do |format|
+      format.js
+      format.html { redirect_to post }
+    end
   end
 end

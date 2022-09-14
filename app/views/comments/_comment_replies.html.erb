@@ -1,5 +1,14 @@
-<h3> <%= comment.replies.count %> Replies</h3><hr>
-<%= render comment.replies %>
+<h3>
+  <span class="<%= comment.class %>-comments-count-<%= comment.id %>">
+    <%= comment.replies.count %>
+  </span> Replies
+</h3><hr>
+
+<span class="<%= comment.class %>-comments-<%= comment.id %>">
+  <%= render comment.replies %>
+</span>
 
 <h3>Add a Reply:</h3>
-<%= render 'comments/form' , object: comment, type: 'Comment', parent_id: comment.id, path_type: comment.replies.build %>
+<span class="<%= comment.class %>-comments-form-<%= comment.id %>">
+  <%= render 'comments/form' , object: comment, type: 'Comment', parent_id: comment.id, path_type: comment.replies.build %>
+</span>

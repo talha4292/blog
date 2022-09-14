@@ -7,10 +7,8 @@ class LikesController < ApplicationController
   def create
     @like = current_user.likes.new(like_params)
     flash[:notice] = @like.errors.full_messages.to_sentence unless @like.save
-
     post = @like.likeable
     post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
-
     req_format(post)
   end
 

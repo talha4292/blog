@@ -15,7 +15,7 @@
 
 <p>
   <%= link_to 'Destroy Comment', comment,
-              method: :delete,
+              method: :delete, remote: true,
               data: { confirm: 'Are you sure?' } if policy(comment).destroy? %>
 </p>
 

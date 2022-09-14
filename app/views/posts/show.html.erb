@@ -19,18 +19,28 @@
 </span>
 
 <p class="icon-margin inline-style">
-  <%= @post.comments.count %>
+  <span class="<%= @post.class %>-comments-count-<%= @post.id %>">
+    <%= @post.comments.count %>
+  </span>
   <i class="far fa-comment icon-color" aria-hidden="true"></i>
 </p>
 
 <%= render 'shared/report_button', object: @post, controller: 'posts' %>
 
 <br><br><br>
-<h2><%= @post.comments.count %> Comments</h2><hr>
-<%= render @post.comments %>
+<h2>
+  <span class="<%= @post.class %>-comments-count-<%= @post.id %>">
+    <%= @post.comments.count %>
+  </span> Comments
+</h2><hr>
+<span class="<%= @post.class %>-comments-<%= @post.id %>">
+  <%= render @post.comments %>
+</span>
 
 <h2>Add a comment:</h2>
-<%= render 'comments/form', object: @post, type: 'Post', parent_id: nil, path_type: @post.comments.build %><hr>
+<span class="<%= @post.class %>-comments-form-<%= @post.id %>">
+  <%= render 'comments/form', object: @post, type: 'Post', parent_id: nil, path_type: @post.comments.build %><hr>
+</span>
 
 <% if current_user.id == @post.user_id %>
   <h2> <%= @post.suggestions.count %> Suggestions</h2>
