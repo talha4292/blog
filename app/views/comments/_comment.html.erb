@@ -7,7 +7,9 @@
 <%= simple_format(comment.text) %>
 <%= image_tag comment.image_url, size: 200 if comment.image %><br>
 
-<%= comment_like_button(comment) %>
+<span class="<%= comment.class %>-like-button-<%= comment.id %>">
+  <%= comment_like_button(comment) %>
+</span>
 
 <%= render 'shared/report_button', object: comment, controller: 'comments' %>
 

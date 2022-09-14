@@ -10,6 +10,7 @@ class LikesController < ApplicationController
 
     post = @like.likeable
     post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
+
     req_format(post)
   end
 

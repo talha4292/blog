@@ -14,7 +14,10 @@
   <%= @post.text.html_safe %>
 </p><br>
 
-<%= post_like_button(@post) %>
+<span class="<%= @post.class %>-like-button-<%= @post.id %>">
+  <%= post_like_button(@post) %>
+</span>
+
 <p class="icon-margin inline-style">
   <%= @post.comments.count %>
   <i class="far fa-comment icon-color" aria-hidden="true"></i>
