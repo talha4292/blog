@@ -2,6 +2,8 @@
 
 # CommentsController
 class CommentsController < ApplicationController
+  include FetchPostFromAssociated
+
   before_action :set_comment_policy, only: %i[show create]
   before_action :set_comment, only: %i[show destroy]
 
@@ -10,17 +12,15 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(comment_params)
     flash[:notice] = @comment.errors.full_messages.to_sentence unless @comment.save
-    post = @comment.commentable
-    post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
-    redirect_to post
+    post = fetch_post(@comment.commentable)
+    req_format(post)
   end
 
   def destroy
     authorize @comment
-    post = @comment.commentable
-    post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
+    post = fetch_post(@comment.commentable)
     @comment.destroy
-    redirect_to post
+    req_format(post)
   end
 
   private
@@ -35,5 +35,12 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def req_format(post)
+    respond_to do |format|
+      format.js
+      format.html { redirect_to post }
+    end
   end
 end

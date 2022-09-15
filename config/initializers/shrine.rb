@@ -4,9 +4,9 @@ require 'cloudinary'
 require 'shrine/storage/cloudinary'
 
 Cloudinary.config(
-  cloud_name: 'du2ddzhhf',
-  api_key: '799376471897378',
-  api_secret: 'iRhLPkvbPHCyFA2H-BePCk6okJg'
+  cloud_name: Rails.application.credentials.dig(:cloudinary, :cloud_name),
+  api_key: Rails.application.credentials.dig(:cloudinary, :api_key),
+  api_secret: Rails.application.credentials.dig(:cloudinary, :api_secret)
 )
 
 Shrine.storages = {

@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= f.label :birthday %><br />
-    <%= f.date_field :birthday, required: true %>
+    <%= f.date_field :birthday, required: true, min: Date.today - 118.years, max: Date.today - 18.years %>
   </div>
 
   <div class="field">

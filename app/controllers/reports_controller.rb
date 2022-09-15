@@ -2,6 +2,8 @@
 
 # ReportsController
 class ReportsController < ApplicationController
+  include FetchPostFromAssociated
+
   before_action :set_report_policy, only: %i[index new]
 
   def index
@@ -18,8 +20,7 @@ class ReportsController < ApplicationController
     @report = current_user.reports.new(report_params)
     authorize @report
     flash[:notice] = @report.errors.full_messages.to_sentence unless @report.save
-    post = @report.reportable
-    post = post.commentable until post.instance_of?(Post) || post.instance_of?(Suggestion)
+    post = fetch_post(@report.reportable)
     redirect_to post
   end
 

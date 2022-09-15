@@ -4,15 +4,18 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
-  rescue_from Pundit::NotAuthorizedError do
-    redirect_to root_url, alert: t('application.pundit_failure')
-  end
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-
   before_action :config_permitted_params, if: :devise_controller?
   before_action :authenticate_user!, unless: :devise_controller?
 
   after_action :verify_authorized, unless: :devise_controller?
+
+  protect_from_forgery with: :exception
+
+  rescue_from Pundit::NotAuthorizedError do
+    redirect_to root_url, alert: t('application.pundit_failure')
+  end
+
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   protected
 

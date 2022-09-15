@@ -1,4 +1,4 @@
-<%= form_with(model: [ object, object.likes.build ], local: true, html: { class: "inline-style" }) do |form| %>
+<%= form_with(model: [ object, object.likes.build ], remote: true, html: { class: "inline-style" }) do |form| %>
   <%= form.hidden_field 'likeable_id', value: object.id %>
   <%= form.hidden_field 'likeable_type', value: type %>
   <button type="submit" class="like-button" >

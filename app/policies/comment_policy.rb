@@ -10,14 +10,18 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def show?
-    user.moderator? || user.admin?
-  end
-
-  def create?
     user
   end
 
   def destroy?
+    user_is_owner_of_record?
+  end
+
+  private
+
+  alias create? show?
+
+  def user_is_owner_of_record?
     user == @record.user
   end
 end

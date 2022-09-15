@@ -10,7 +10,8 @@
 
   <p>
     <%= form.label :image %><br>
-    <%= form.file_field :image, required: true, accept: 'image/png, image/jpeg, image/webp' %>
+    <%= form.file_field :image, required: true, accept: 'image/png, image/jpeg, image/webp' unless @post.image%>
+    <%= form.file_field :image, required: false, accept: 'image/png, image/jpeg, image/webp' if @post.image%>
   </p>
 
   <p>
