@@ -13,11 +13,15 @@ class CommentPolicy < ApplicationPolicy
     user
   end
 
-  def create?
-    user
+  def destroy?
+    user_is_owner_of_record?
   end
 
-  def destroy?
+  private
+
+  alias create? show?
+
+  def user_is_owner_of_record?
     user == @record.user
   end
 end
