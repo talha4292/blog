@@ -10,7 +10,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def show?
-    user.moderator? || user.admin?
+    user
   end
 
   def create?

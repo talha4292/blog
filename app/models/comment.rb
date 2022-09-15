@@ -12,5 +12,7 @@ class Comment < ApplicationRecord
   has_many :replies, as: :commentable, class_name: 'Comment', foreign_key: 'parent_id', dependent: :destroy,
                      inverse_of: :parent
 
+  scope :descending, -> { order(updated_at: :desc) }
+
   validates :text, presence: true
 end
