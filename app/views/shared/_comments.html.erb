@@ -15,7 +15,7 @@
         <div class="card-body">
           <%= simple_format(comment.text) %>
         </div>
-        <%= link_to '', post_path(comment.commentable), class: "stretched-link" %>
+        <%= link_to '', polymorphic_path(comment.commentable), class: "stretched-link" %>
       </div>
     </div><br>
   <% end %>
