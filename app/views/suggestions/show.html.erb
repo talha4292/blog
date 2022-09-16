@@ -8,12 +8,19 @@
 <%= @suggestion.text.html_safe %>
 <br>
 
-<h2> <%= @suggestion.comments.count %> Comments</h2><hr>
-<%= render @suggestion.comments %>
-
+<h2>
+  <span class="<%= @suggestion.class %>-comments-count-<%= @suggestion.id %>">
+    <%= @suggestion.comments.count %>
+    </span> Comments
+</h2><hr>
+<span class="<%= @suggestion.class %>-comments-<%= @suggestion.id %>">
+  <%= render @suggestion.comments %>
+</span>
 
 <h2>Add a comment:</h2>
-<%= render 'comments/form', object: @suggestion, type: 'Suggestion', parent_id: nil, path_type: @suggestion.comments.build %>
+<span class="<%= @suggestion.class %>-comments-form-<%= @suggestion.id %>">
+  <%= render 'comments/form', object: @suggestion, type: 'Suggestion', parent_id: nil, path_type: @suggestion.comments.build %>
+</span>
 
 <% if current_user.id == @suggestion.user_id %>
   <%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
