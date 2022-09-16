@@ -6,8 +6,8 @@ class DashboardController < ApplicationController
 
   def index
     @posts = Post.approved.descending
-    @comments = Comment.where(parent_id: nil).descending.limit(5)
-    @likes = Like.descending.limit(5)
+    @comments = Comment.where.not(commentable_type: 'Suggestion').where(parent_id: nil).descending.limit(5)
+    @likes = Like.where.not(likeable_type: 'Suggestion').descending.limit(5)
   end
 
   private
