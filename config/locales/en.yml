@@ -33,3 +33,7 @@ en:
   application:
     pundit_failure: 'You are not authorized for this action'
     record_not_exists: 'Record you are trying to find does not exists'
+  post:
+    post_created: 'Post has been created'
+    post_updated: 'Post has been updated'
+    post_deleted: 'Post has been deleted'
