@@ -19,6 +19,11 @@ RSpec.describe 'Posts', type: :request do
       user_id: user.id }
   end
 
+  def invalid_post_params
+    { title: '', text: '<div><strong>This is content of post</strong></div>', status: 'approved', user_id: user.id,
+      image: fixture_file_upload(Rails.root.join('spec/fixtures/p1.jpeg')) }
+  end
+
   describe 'when user is not signed in' do
     describe '#index' do
       it 'redirects to signin page' do
@@ -83,20 +88,16 @@ RSpec.describe 'Posts', type: :request do
     end
 
     describe '#index' do
-      context 'when posts_path is requested' do
-        it 'renders index action of post' do
-          get posts_path
-          expect(response).to render_template(:index)
-        end
+      it 'renders index action of post' do
+        get posts_path
+        expect(response).to render_template(:index)
       end
     end
 
     describe '#approve' do
-      context 'when approve_posts_path is requested' do
-        it 'gives un-authorized action alert' do
-          get approve_posts_path
-          expect(flash[:alert]).to eq('You are not authorized for this action')
-        end
+      it 'gives un-authorized action alert' do
+        get approve_posts_path
+        expect(flash[:alert]).to eq('You are not authorized for this action')
       end
     end
 
@@ -107,14 +108,19 @@ RSpec.describe 'Posts', type: :request do
           expect(response).to render_template(:show)
         end
       end
+
+      context 'when unknown post ID is given' do
+        it 'gives record not found alert' do
+          get post_path('5989-78')
+          expect(flash[:alert]).to eq('Record you are trying to find does not exists')
+        end
+      end
     end
 
     describe '#new' do
-      context 'when new post path is requested' do
-        it 'renders the new template' do
-          get new_post_path
-          expect(response).to render_template(:new)
-        end
+      it 'renders the new template' do
+        get new_post_path
+        expect(response).to render_template(:new)
       end
     end
 
@@ -210,11 +216,9 @@ RSpec.describe 'Posts', type: :request do
     end
 
     describe '#approve' do
-      context 'when approve_posts_path is requested' do
-        it 'renders approve action of post' do
-          get approve_posts_path
-          expect(response).to render_template(:approve)
-        end
+      it 'renders approve action of post' do
+        get approve_posts_path
+        expect(response).to render_template(:approve)
       end
     end
   end

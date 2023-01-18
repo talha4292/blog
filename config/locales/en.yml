@@ -37,3 +37,7 @@ en:
     post_created: 'Post has been created'
     post_updated: 'Post has been updated'
     post_deleted: 'Post has been deleted'
+  suggestion:
+    suggestion_created: 'Suggestion has been created'
+    suggestion_updated: 'Suggestion has been updated'
+    suggestion_deleted: 'Suggestion has been deleted'
