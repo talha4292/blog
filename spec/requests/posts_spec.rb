@@ -102,18 +102,14 @@ RSpec.describe 'Posts', type: :request do
     end
 
     describe '#show' do
-      context 'when show post path is given' do
-        it 'renders show action of post' do
-          get post_path(post_one.id)
-          expect(response).to render_template(:show)
-        end
+      it 'renders show action of post when show post path is given' do
+        get post_path(post_one.id)
+        expect(response).to render_template(:show)
       end
 
-      context 'when unknown post ID is given' do
-        it 'gives record not found alert' do
-          get post_path('5989-78')
-          expect(flash[:alert]).to eq('Record you are trying to find does not exists')
-        end
+      it 'gives record not found alert when unknown post ID is given' do
+        get post_path('5989-78')
+        expect(flash[:alert]).to eq('Record you are trying to find does not exists')
       end
     end
 
@@ -125,87 +121,65 @@ RSpec.describe 'Posts', type: :request do
     end
 
     describe '#edit' do
-      context 'when own post is given' do
-        it 'renders the edit template' do
-          get edit_post_path(post_one.id)
-          expect(response).to render_template(:edit)
-        end
+      it 'renders the edit template when own post is given' do
+        get edit_post_path(post_one.id)
+        expect(response).to render_template(:edit)
       end
 
-      context 'when someone else post is given' do
-        it 'gives un-authorized action alert' do
-          get edit_post_path(post_two.id)
-          expect(flash[:alert]).to eq('You are not authorized for this action')
-        end
+      it 'gives un-authorized action alert when someone else post is given' do
+        get edit_post_path(post_two.id)
+        expect(flash[:alert]).to eq('You are not authorized for this action')
       end
 
-      context 'when unknown post ID is given' do
-        it 'gives record not found alert' do
-          get edit_post_path('5989-78')
-          expect(flash[:alert]).to eq('Record you are trying to find does not exists')
-        end
+      it 'gives record not found alert when unknown post ID is given' do
+        get edit_post_path('5989-78')
+        expect(flash[:alert]).to eq('Record you are trying to find does not exists')
       end
     end
 
     describe '#create' do
-      context 'when cover image is given' do
-        it 'creates a post' do
-          post posts_path, params: { post: post_params_with_image }
-          expect(flash[:notice]).to eq('Post has been created')
-        end
+      it 'creates a post when cover image is given' do
+        post posts_path, params: { post: post_params_with_image }
+        expect(flash[:notice]).to eq('Post has been created')
       end
 
-      context 'when cover image is not given' do
-        it 're-renders new template and post not created' do
-          post posts_path, params: { post: post_params_without_image }
-          expect(response).to render_template(:new)
-        end
+      it 're-renders new template and post not created when cover image is not given' do
+        post posts_path, params: { post: post_params_without_image }
+        expect(response).to render_template(:new)
       end
     end
 
     describe '#update' do
-      context 'when own post is given' do
-        it 'updates a post' do
-          patch post_path(post_one.id), params: { post: { text: 'text updated' } }
-          expect(flash[:notice]).to eq 'Post has been updated'
-        end
+      it 'updates a post when own post is given' do
+        patch post_path(post_one.id), params: { post: { text: 'text updated' } }
+        expect(flash[:notice]).to eq 'Post has been updated'
       end
 
-      context 'when unknown post ID is given' do
-        it 'gives record not found alert' do
-          patch post_path('5989-78'), params: { post: { text: 'text updated' } }
-          expect(flash[:alert]).to eq 'Record you are trying to find does not exists'
-        end
+      it 'gives record not found alert when unknown post ID is given' do
+        patch post_path('5989-78'), params: { post: { text: 'text updated' } }
+        expect(flash[:alert]).to eq 'Record you are trying to find does not exists'
       end
 
-      context 'when someone else post is given' do
-        it 'gives un-authorized action alert' do
-          patch post_path(post_two), params: { post: { text: 'text updated' } }
-          expect(flash[:alert]).to eq('You are not authorized for this action')
-        end
+      it 'gives un-authorized action alert when someone else post is given' do
+        patch post_path(post_two), params: { post: { text: 'text updated' } }
+        expect(flash[:alert]).to eq('You are not authorized for this action')
       end
     end
 
     describe '#destroy' do
-      context 'when own post is given' do
-        it 'deletes a post' do
-          delete post_path(post_one)
-          expect(flash[:notice]).to eq('Post has been deleted')
-        end
+      it 'deletes a post when own post is given' do
+        delete post_path(post_one)
+        expect(flash[:notice]).to eq('Post has been deleted')
       end
 
-      context 'when unknown post ID is given' do
-        it 'gives record not found alert' do
-          delete post_path('5989-78')
-          expect(flash[:alert]).to eq('Record you are trying to find does not exists')
-        end
+      it 'gives record not found alert when unknown post ID is given' do
+        delete post_path('5989-78')
+        expect(flash[:alert]).to eq('Record you are trying to find does not exists')
       end
 
-      context 'when someone else post is given' do
-        it 'gives un-authorized action alert' do
-          delete post_path(post_two)
-          expect(flash[:alert]).to eq('You are not authorized for this action')
-        end
+      it 'gives un-authorized action alert when someone else post is given' do
+        delete post_path(post_two)
+        expect(flash[:alert]).to eq('You are not authorized for this action')
       end
     end
   end
