@@ -27,6 +27,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
+      flash[:notice] = t('post.post_created')
       redirect_to @post
     else
       render 'new'
@@ -36,6 +37,7 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       @post.reports.destroy_all
+      flash[:notice] = t('post.post_updated')
       redirect_to @post
     else
       render 'edit'
@@ -44,6 +46,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    flash[:notice] = t('post.post_deleted')
     redirect_to posts_path
   end
 
