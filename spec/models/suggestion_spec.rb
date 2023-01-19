@@ -14,7 +14,7 @@ RSpec.describe Suggestion, type: :model do
   let(:user2) { create(:user, :user) }
   let(:post) { create(:post, :approved, user_id: user1.id) }
   let!(:suggestion_one) { create(:suggestion, post_id: post.id, user_id: user2.id, updated_at: 1.day.ago) }
-  let!(:suggestion_two) { create(:suggestion, post_id: post.id, user_id: user3.id, updated_at: 1.hour.ago) }
+  let(:suggestion_two) { create(:suggestion, post_id: post.id, user_id: user3.id, updated_at: 1.hour.ago) }
   let(:suggestion_three) { build(:suggestion, post_id: post.id, user_id: user2.id) }
 
   describe 'associations tests' do

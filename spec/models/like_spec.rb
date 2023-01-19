@@ -6,7 +6,7 @@ RSpec.describe Like, type: :model do
   let(:user1) { create(:user, :user) }
   let(:post) { create(:post, :approved, user_id: user1.id) }
   let!(:like_one) { create(:like, likeable: post, user_id: user1.id, updated_at: 1.day.ago) }
-  let!(:like_two) { create(:like, likeable: post, user_id: user2.id, updated_at: 1.hour.ago) }
+  let(:like_two) { create(:like, likeable: post, user_id: user2.id, updated_at: 1.hour.ago) }
   let(:like_three) { build(:like, likeable: post, user_id: user1.id) }
 
   def user2

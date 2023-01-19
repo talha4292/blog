@@ -14,7 +14,7 @@ RSpec.describe Report, type: :model do
   let(:user2) { create(:user, :user) }
   let(:post) { create(:post, :approved, user_id: user1.id) }
   let!(:report_one) { create(:report, reportable: post, user_id: user2.id, updated_at: 1.day.ago) }
-  let!(:report_two) { create(:report, reportable: post, user_id: user3.id, updated_at: 1.hour.ago) }
+  let(:report_two) { create(:report, reportable: post, user_id: user3.id, updated_at: 1.hour.ago) }
   let(:report_three) { build(:report, reportable: post, user_id: user2.id) }
 
   describe 'associations tests' do

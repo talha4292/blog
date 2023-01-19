@@ -29,7 +29,7 @@ RSpec.describe 'Suggestions', type: :request do
     { text: nil, user_id: user2.id, post_id: post1.id }
   end
 
-  describe 'when user is not signed in' do
+  context 'when user is not signed in' do
     describe '#index' do
       it 'redirects to signin page' do
         get suggestions_path
@@ -80,7 +80,7 @@ RSpec.describe 'Suggestions', type: :request do
     end
   end
 
-  describe 'when user is signed in' do
+  context 'when user is signed in' do
     before do
       sign_in user2
     end

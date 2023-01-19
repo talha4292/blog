@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe Comment, type: :model do
   let(:user) { create(:user, :user) }
   let(:post) { create(:post, :approved, user_id: user.id) }
-  let!(:comment_one) { create(:comment, commentable: post, user_id: user.id, updated_at: 1.day.ago) }
-  let!(:comment_two) { create(:comment, commentable: post, user_id: user.id, updated_at: 1.hour.ago) }
+  let(:comment_one) { create(:comment, commentable: post, user_id: user.id, updated_at: 1.day.ago) }
+  let(:comment_two) { create(:comment, commentable: post, user_id: user.id, updated_at: 1.hour.ago) }
 
   describe 'associations tests' do
     it { is_expected.to belong_to(:user) }

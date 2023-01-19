@@ -24,7 +24,7 @@ RSpec.describe 'Posts', type: :request do
       image: fixture_file_upload(Rails.root.join('spec/fixtures/p1.jpeg')) }
   end
 
-  describe 'when user is not signed in' do
+  context 'when user is not signed in' do
     describe '#index' do
       it 'redirects to signin page' do
         get posts_path
@@ -82,7 +82,7 @@ RSpec.describe 'Posts', type: :request do
     end
   end
 
-  describe 'when user is signed in' do
+  context 'when user is signed in' do
     before do
       sign_in user
     end
@@ -189,7 +189,7 @@ RSpec.describe 'Posts', type: :request do
     end
   end
 
-  describe 'when moderator is signed in' do
+  context 'when moderator is signed in' do
     before do
       sign_in moderator
     end
