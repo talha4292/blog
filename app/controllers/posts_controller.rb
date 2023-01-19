@@ -30,6 +30,7 @@ class PostsController < ApplicationController
       flash[:notice] = t('post.post_created')
       redirect_to @post
     else
+      flash.now[:notice] = @post.errors.full_messages.to_sentence
       render 'new'
     end
   end
@@ -40,6 +41,7 @@ class PostsController < ApplicationController
       flash[:notice] = t('post.post_updated')
       redirect_to @post
     else
+      flash.now[:notice] = @post.errors.full_messages.to_sentence
       render 'edit'
     end
   end

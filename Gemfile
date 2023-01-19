@@ -48,6 +48,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'simplecov'
 end
 
 gem 'terser', '~> 1.1'

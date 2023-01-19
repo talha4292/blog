@@ -25,6 +25,10 @@ RSpec.describe 'Suggestions', type: :request do
     { text: '<div><strong>This is content of post</strong></div>', user_id: user2.id, post_id: post1.id }
   end
 
+  def nil_text_suggestion_params
+    { text: nil, user_id: user2.id, post_id: post1.id }
+  end
+
   describe 'when user is not signed in' do
     describe '#index' do
       it 'redirects to signin page' do
@@ -125,9 +129,14 @@ RSpec.describe 'Suggestions', type: :request do
     end
 
     describe '#create' do
-      it 'creates a suggestion' do
+      it 'creates a suggestion when text is given' do
         post post_suggestions_path(post1.id), params: { suggestion: suggestion_params }
         expect(flash[:notice]).to eq('Suggestion has been created')
+      end
+
+      it 'gives text can\'t be blank error when text is nil' do
+        post post_suggestions_path(post1.id), params: { suggestion: nil_text_suggestion_params }
+        expect(flash[:notice]).to include('Text can\'t be blank')
       end
     end
 
@@ -135,6 +144,11 @@ RSpec.describe 'Suggestions', type: :request do
       it 'updates a suggestion when own suggestion is given' do
         patch suggestion_path(suggestion_one.id), params: { suggestion: { text: 'text updated' } }
         expect(flash[:notice]).to eq('Suggestion has been updated')
+      end
+
+      it 'gives text can\'t be blank error when text is nil' do
+        patch suggestion_path(suggestion_one.id), params: { suggestion: { text: nil } }
+        expect(flash[:notice]).to include('Text can\'t be blank')
       end
 
       it 'gives record not found alert when unknown suggestion ID is given' do

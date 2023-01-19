@@ -155,6 +155,11 @@ RSpec.describe 'Posts', type: :request do
         expect(flash[:notice]).to eq 'Post has been updated'
       end
 
+      it 'gives text can\'t be blank error when text is nil' do
+        patch post_path(post_one.id), params: { post: { text: nil } }
+        expect(flash[:notice]).to include 'Text can\'t be blank'
+      end
+
       it 'gives record not found alert when unknown post ID is given' do
         patch post_path('5989-78'), params: { post: { text: 'text updated' } }
         expect(flash[:alert]).to eq 'Record you are trying to find does not exists'
