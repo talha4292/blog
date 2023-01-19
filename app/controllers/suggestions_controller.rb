@@ -21,20 +21,27 @@ class SuggestionsController < ApplicationController
   def create
     @suggestion = current_user.suggestions.new(suggestion_params)
     authorize @suggestion
-    flash[:notice] = @suggestion.errors.full_messages unless @suggestion.save
+    flash[:notice] = if @suggestion.save
+                       t('suggestion.suggestion_created')
+                     else
+                       @suggestion.errors.full_messages.to_sentence
+                     end
     redirect_to post_path(@suggestion.post)
   end
 
   def update
     if @suggestion.update(suggestion_params)
+      flash[:notice] = t('suggestion.suggestion_updated')
       redirect_to suggestion_path(@suggestion)
     else
+      flash.now[:notice] = @suggestion.errors.full_messages.to_sentence
       render 'edit'
     end
   end
 
   def destroy
     @suggestion.destroy
+    flash[:notice] = t('suggestion.suggestion_deleted')
     redirect_to suggestions_path
   end
 
