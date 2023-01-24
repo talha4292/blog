@@ -4,6 +4,7 @@
   "dependencies": {
     "@rails/webpacker": "5.3.0",
     "actiontext": "https://github.com/kobaltz/actiontext",
+    "bootstrap": "^5.2.3",
     "node-sass": "^7.0.1"
   },
   "devDependencies": {
