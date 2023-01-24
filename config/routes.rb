@@ -29,4 +29,11 @@ Rails.application.routes.draw do
       resources :comments, only: %i[show create destroy], concerns: %i[likeable commentable reportable]
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :posts, only: %i[index show]
+    end
+  end
+  
 end
